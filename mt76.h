@@ -308,6 +308,10 @@ struct mt76_driver_ops {
 			      struct mt76_wcid *wcid,
 			      struct ieee80211_sta *sta, void *tx_info);
 
+	int (*tx_map)(struct mt76_dev *dev, enum mt76_txq_id qid,
+		      struct sk_buff *skb, struct mt76_txwi_cache *t,
+		      struct mt76_queue_buf *buf, int max_size);
+
 	int (*tx_prepare_txp)(struct mt76_dev *dev, void *txwi_ptr,
 			      struct sk_buff *skb, struct mt76_queue_buf *buf);
 
@@ -723,6 +727,10 @@ int mt76_get_txpower(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
 
 void mt76_csa_check(struct mt76_dev *dev);
 void mt76_csa_finish(struct mt76_dev *dev);
+
+int mt76_dma_tx_map(struct mt76_dev *dev, enum mt76_txq_id qid,
+		    struct sk_buff *skb, struct mt76_txwi_cache *t,
+		    struct mt76_queue_buf *buf, int max_size);
 
 /* internal */
 void mt76_tx_free(struct mt76_dev *dev);
