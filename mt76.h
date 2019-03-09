@@ -313,9 +313,6 @@ struct mt76_driver_ops {
 		      struct sk_buff *skb, struct mt76_txwi_cache *t,
 		      struct mt76_queue_buf *buf, int max_size);
 
-	int (*tx_prepare_txp)(struct mt76_dev *dev, void *txwi_ptr,
-			      struct sk_buff *skb, struct mt76_queue_buf *buf);
-
 	void (*tx_complete_skb)(struct mt76_dev *dev, enum mt76_txq_id qid,
 				struct mt76_queue_entry *e);
 
