@@ -331,7 +331,6 @@ mt76_dma_tx_queue_skb(struct mt76_dev *dev, enum mt76_txq_id qid,
 	struct mt76_tx_info tx_info = {
 		.len = skb->len,
 	};
-	struct mt76_queue_entry e;
 	struct mt76_txwi_cache *t;
 	int ret = -ENOMEM;
 
@@ -361,9 +360,7 @@ mt76_dma_tx_queue_skb(struct mt76_dev *dev, enum mt76_txq_id qid,
 				tx_info.info, skb, t);
 
 err:
-	e.skb = skb;
-	e.txwi = t;
-	dev->drv->tx_complete_skb(dev, qid, &e);
+	mt76_tx_complete_skb(dev, skb);
 	mt76_put_txwi(dev, t);
 	return ret;
 }
